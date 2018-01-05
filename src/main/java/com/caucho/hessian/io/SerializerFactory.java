@@ -68,6 +68,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.caucho.burlap.io.BurlapRemoteObject;
+import com.caucho.hessian.util.InnerClassLoaderHolder;
 
 /**
  * Factory for returning serialization methods.
@@ -115,7 +116,7 @@ public class SerializerFactory extends AbstractSerializerFactory
 
   public SerializerFactory()
   {
-    this(Thread.currentThread().getContextClassLoader());
+    this(InnerClassLoaderHolder.getinstance().getClassLoader());
   }
 
   public SerializerFactory(ClassLoader loader)
@@ -127,7 +128,7 @@ public class SerializerFactory extends AbstractSerializerFactory
 
   public static SerializerFactory createDefault()
   {
-    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    ClassLoader loader = InnerClassLoaderHolder.getinstance().getClassLoader();
 
     synchronized (_defaultFactoryRefMap) {
       SoftReference<SerializerFactory> factoryRef

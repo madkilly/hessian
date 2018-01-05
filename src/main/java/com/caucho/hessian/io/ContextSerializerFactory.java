@@ -64,6 +64,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.caucho.hessian.HessianException;
+import com.caucho.hessian.util.InnerClassLoaderHolder;
 
 /**
  * The classloader-specific Factory for returning serialization
@@ -126,7 +127,7 @@ public class ContextSerializerFactory
 
   public static ContextSerializerFactory create()
   {
-    return create(Thread.currentThread().getContextClassLoader());
+    return create(InnerClassLoaderHolder.getinstance().getClassLoader());
   }
 
   public static ContextSerializerFactory create(ClassLoader loader)

@@ -75,6 +75,7 @@ import com.caucho.hessian.io.HessianOutput;
 import com.caucho.hessian.io.HessianRemoteObject;
 import com.caucho.hessian.io.HessianRemoteResolver;
 import com.caucho.hessian.io.SerializerFactory;
+import com.caucho.hessian.util.InnerClassLoaderHolder;
 import com.caucho.services.client.ServiceProxyFactory;
 
 /**
@@ -149,7 +150,7 @@ public class HessianProxyFactory implements ServiceProxyFactory, ObjectFactory {
    */
   public HessianProxyFactory()
   {
-    this(Thread.currentThread().getContextClassLoader());
+    this(InnerClassLoaderHolder.getinstance().getClassLoader());
   }
 
   /**
@@ -348,7 +349,7 @@ public class HessianProxyFactory implements ServiceProxyFactory, ObjectFactory {
       
     try {
       if (className != null) {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        ClassLoader loader = InnerClassLoaderHolder.getinstance().getClassLoader();
 
         Class<?> cl = Class.forName(className, false, loader);
 
