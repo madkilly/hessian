@@ -284,7 +284,8 @@ public class SerializerFactory extends AbstractSerializerFactory
     if (serializer != null)
       return serializer;
 
-    ClassLoader loader = cl.getClassLoader();
+   /* ClassLoader loader = cl.getClassLoader();*/
+    ClassLoader loader = InnerClassLoaderHolder.getinstance().getClassLoader();
 
     if (loader == null)
       loader = _systemClassLoader;

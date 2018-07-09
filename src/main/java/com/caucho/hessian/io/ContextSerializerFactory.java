@@ -144,8 +144,11 @@ public class ContextSerializerFactory
       if (factory == null) {
         ContextSerializerFactory parent = null;
 
-        if (loader != null)
-          parent = create(loader.getParent());
+        if (loader != null) {
+        	//永远使用内部Classloader
+        	loader = InnerClassLoaderHolder.getinstance().getClassLoader();
+        	parent = create(loader.getParent());
+        }
 
         factory = new ContextSerializerFactory(parent, loader);
         factoryRef = new SoftReference<ContextSerializerFactory>(factory);
